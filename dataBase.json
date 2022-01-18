@@ -1,0 +1,202 @@
+{
+    "About": {
+        "h1": "A little about our special story",
+        "h2": "FOXHOME is a chain of stores that offers a variety of products in the areas of kitchen, hospitality and tableware, textiles, bath and decorative. Log in and order products through the website that will upgrade your home!",
+        "h3": "lo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo volupta"
+    },
+    "Contact": {
+        "h2": "We're here to hear",
+        "h3": "Our customer service is always available for you <br/><br/> Days Sunday to Thursday from 09:00 to 16:00 <br/><br/> You can reach us by phone: 03-3766663 or by e-mail: contactus@sabon.co.il",
+        "h4": "We are here, for any question or interest"
+    },
+    "ProductCatalog": [
+        {
+            "title": "Aluminum Tray",
+            "price": 35,
+            "path": "../images/AluminumTray.jpg"
+        },
+        {
+            "title": "Bread Basket",
+            "price": 70,
+            "path": "../images/BreadBasket.jpg"
+        },
+        {
+            "title": "Cutlery",
+            "price": 50,
+            "path": "../images/Cutlery.jpg"
+        },
+        {
+            "title": "Glass Bowl",
+            "price": 18,
+            "path": "../images/GlassBowl.jpg"
+        },
+        {
+            "title": "Glass Cup",
+            "price": 50,
+            "path": "../images/GlassCup.jpg"
+        },
+        {
+            "title": "Mug With Bottom",
+            "price": 32,
+            "path": "../images/MugWithBottom.jpg"
+        },
+        {
+            "title": "Pitcher Tea",
+            "price": 46,
+            "path": "../images/PitcherTea.jpg"
+        },
+        {
+            "title": "Plates",
+            "price": 90,
+            "path": "../images/Plates.jpg"
+        },
+        {
+            "title": "Serving Spoon",
+            "price": 14,
+            "path": "../images/ServingSpoon.jpg"
+        },
+        {
+            "title": "Peeling Knife",
+            "price": 42,
+            "path": "../images/PeelingKnife.jpg"
+        },
+        {
+            "title": "Finjan",
+            "price": 25,
+            "path": "../images/Finjan.jpg"
+        },
+        {
+            "title": "Wooden Plank",
+            "price": 74,
+            "path": "../images/WoodenPlank.jpg"
+        }
+    ],
+    "UserManagement": {
+        "test@gmail.com": {
+            "UserName": "test@gmail.com",
+            "Password": "test",
+            "Type": "manager",
+            "IsActive": true,
+            "key": "kyisk85ovtzf8d1tod:manager"
+        },
+        "manager@gmail.com": {
+            "UserName": "manager@gmail.com",
+            "Password": "manager",
+            "Type": "manager",
+            "IsActive": true
+        },
+        "nitzan@gmail.com": {
+            "UserName": "nitzan@gmail.com",
+            "Password": "nitzan123",
+            "Type": "manager",
+            "IsActive": true
+        },
+        "alon@gmail.com": {
+            "UserName": "alon@gmail.com",
+            "Password": "alon123",
+            "Type": "manager",
+            "IsActive": true
+        },
+        "customer@gmail.com": {
+            "UserName": "customer@gmail.com",
+            "Password": "customer",
+            "Type": "customer",
+            "IsActive": true
+        },
+        "david@gmail.com": {
+            "UserName": "david@gmail.com",
+            "Password": "david123",
+            "Type": "customer",
+            "IsActive": true
+        },
+        "beny@gmail.com": {
+            "UserName": "beny@gmail.com",
+            "Password": "beny123",
+            "Type": "customer",
+            "IsActive": true
+        },
+        "employee@gmail.com": {
+            "UserName": "employee@gmail.com",
+            "Password": "employee",
+            "Type": "employee",
+            "IsActive": true
+        },
+        "lin@gmail.com": {
+            "UserName": "lin@gmail.com",
+            "Password": "lin123",
+            "Type": "employee",
+            "IsActive": true
+        },
+        "moti@gmail.com": {
+            "UserName": "moti@gmail.com",
+            "Password": "moti123",
+            "Type": "employee",
+            "IsActive": true
+        },
+        "afrat@gmail.com": {
+            "UserName": "afrat@gmail.com",
+            "Password": "afrat123",
+            "Type": "employee",
+            "IsActive": true
+        },
+        "test2@gmail.com": {
+            "UserName": "test2@gmail.com",
+            "Password": "test1",
+            "Type": "customer",
+            "IsActive": false
+        }
+    },
+    "ManagementHierarchyTab": {
+        "guest": [
+            "about",
+            "contact"
+        ],
+        "manager": [
+            "about",
+            "contact",
+            "productCatalog",
+            "userManagement"
+        ],
+        "employee": [
+            "about",
+            "contact",
+            "productCatalog",
+            "userManagement"
+        ],
+        "customer": [
+            "about",
+            "contact",
+            "productCatalog"
+        ]
+    },
+    "Tabs": {
+        "about": {
+            "id": "aboutBtnId",
+            "dataPage": "about",
+            "label": "About"
+        },
+        "contact": {
+            "id": "contactBtnId",
+            "dataPage": "contact",
+            "label": "Contact"
+        },
+        "productCatalog": {
+            "id": "productCatalogBtnId",
+            "dataPage": "productCatalog",
+            "label": "Product Catalog"
+        },
+        "userManagement": {
+            "id": "userManagementBtnId",
+            "dataPage": "userManagement",
+            "label": "User Management"
+        }
+    },
+    "Keys": [
+        "kyiqm90a8vfsumo3j1f:manager",
+        "kyis2rt9np1h293537:manager",
+        "kyisfw7rrej7b6gbsk:manager",
+        "kyisgchehj3yxgz6vkl:manager",
+        "kyisk85ovtzf8d1tod:manager",
+        "kyjsb7fuvrd3lw63y2:manager"
+    ]
+}
