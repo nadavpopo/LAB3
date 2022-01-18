@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- views/index.ejs -->
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+<body class="container">
+<header>
+    <% include partials/header %>
+</header>
+<main>
+    <div class="jumbotron">
+        <h1>This is great 123456</h1>
+        <p>Welcome to templating using EJS</p>
+    </div>
+    <h2>Variable</h2>
+    <p class="bg-warning"><%= tagline %></p>
+    <h2>Ajax</h2>
+    <button onclick="updateList()" class="btn btn-primary">Update List</button>
+    <p><br></p>
+    <ul id="list" class="list-group">
+    </ul>
+</main>
+<footer>
+    <% include partials/footer %>
+</footer>
+<script>
+    async function updateList() {
+        let list = document.getElementById("list");
+        list.innerHTML = "";
+
+        try {
+            let response = await fetch("/drinks");
+            let drinks = await response.json();
+            drinks.forEach(function (drink, index) {
+                let li = document.createElement("LI");
+                li.setAttribute("data-index", "" + index);
+                li.addEventListener("mouseover", getDrink);
+                li.onmouseover = getDrink;
+                li.innerText = drink;
+                li.className = "list-group-item well";
+                list.appendChild(li);
+            });
+        } catch (error) { console.error('Error: ', error); }
+
+        // if (!XMLHttpRequest) return;
+        // var ajax = new XMLHttpRequest();
+        // ajax.open("GET", "/drinks", true);
+        // ajax.onreadystatechange = function() {
+        //   if (this.readyState == 4 && this.status == 200) {
+        //     var drinks = JSON.parse(this.responseText);
+        //     drinks.forEach(function(drink, index) {
+        //       var li = document.createElement("LI");
+        //       li.setAttribute("data-index", "" + index);
+        //       li.addEventListener("mouseover", getDrink);
+        //       li.onmouseover = getDrink;
+        //       li.innerText = drink;
+        //       li.className = "list-group-item well";
+        //       list.appendChild(li);
+        //     });
+        //   };
+        // };
+        // ajax.send();
+        }
+
+        async function getDrink(event) {
+            event.target.title = "";
+
+            try {
+                let response = await fetch("/drinks/" + event.target.getAttribute("data-index"));
+                let drink = await response.json();
+                event.target.title = drink.name + " - " + drink.drunkness;
+            } catch (error) { console.error('Error: ', error); }
+
+            // if (!XMLHttpRequest) return;
+            // var ajax = new XMLHttpRequest();
+            // ajax.open("GET", "/drinks/" + event.target.getAttribute("data-index"), true);
+            // ajax.onreadystatechange = function () {
+            //     if (this.readyState == 4 && this.status == 200) {
+            //         var drink = JSON.parse(this.responseText);
+            //         event.target.title = drink.name + " - " + drink.drunkness;
+            //     }
+            //     ;
+            // };
+            // ajax.send();
+        }
+</script>
+</body>
+</html>

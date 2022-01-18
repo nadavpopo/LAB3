@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Housewares store</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body onload="render()" class="container-fluid">
+    <div id="containerLoaderId" class="containerLoader" style="display: none;">
+        <div class="loader"></div>
+    </div>
+    <div class="logo"><img src="../images/icon.jpg"></div>
+    <nav class="navbar navbar-dark bg-dark text-white">
+        <div class="container">
+            <div class="d-flex">
+                <div id="navId"></div>
+                <div id="tabContainerId" class="d-flex"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container jumbotron">
+        <div id="mainContainer"></div>
+    </main>
+
+    <footer class="p-5 mb-2 bg-dark text-white">
+        <div class="container"></div>
+    </footer>
+
+    <script src="../js/index.js"></script>
+</body>
+</html>
