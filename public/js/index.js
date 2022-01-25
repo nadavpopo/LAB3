@@ -1,10 +1,15 @@
 let typeUser = 'guest';
-let userInfo = { 'UserName': '', 'Password': '', 'Type': 'guest', 'key': '' };
+let userInfo = { 'UserName': '', 'Password': '', 'Type': 'guest' };
 let tabs = [];
 let guestTabs = [
     { "id": "aboutBtnId", "dataPage": "about", "label": "About" },
     { "id": "contactBtnId", "dataPage": "contact", "label": "Contact" }
 ];
+
+async function refreshCurrentPage() {
+    let currentPage = window.location.href.split('#')[1];
+    renderPage(currentPage);
+}
 
 async function render() {
     window.addEventListener('keypress', (e) => (e.keyCode == 13) ? login() : '');
@@ -38,8 +43,8 @@ async function renderFromBtnPage() {
 async function renderPage(page) {
     window.location.href = window.location.href.split('#')[0] + '#' + page;
     let mainContainer = document.getElementById("mainContainer");
-    let options = (page == 'userManagement') ? getOptions({ 'key': userInfo.key }) : {};
-    mainContainer.innerHTML = await getMainHtml(page, options);
+    page = ((page == 'userManagement') || (page == 'productCatalog')) ? `${page}/${userInfo.UserName}` : page;
+    mainContainer.innerHTML = await getMainHtml(page, {});
 }
 
 async function getMainHtml(page, options) {
@@ -47,9 +52,9 @@ async function getMainHtml(page, options) {
     let htmlText = '';
     if ((page == 'about') || (page == 'contact')) {
         htmlText = getAboutOrContactHtml(data);
-    } else if ((page == 'productCatalog')) {
+    } else if (page.includes('productCatalog')) {
         htmlText = getProductListHtml(data);
-    } else {
+    } else if (page.includes('userManagement')) {
         htmlText = getUserManagementHtml(data);
     }
     return htmlText;
@@ -265,9 +270,8 @@ function saveRecord() {
 async function upsertRecord(lineId) {
     let record = createNewRecord(lineId);
     let action = 'upsert';
-    let key = userInfo.key;
     lineId = (lineId == '') ? record["UserName"] : lineId;
-    let body = { "lineId": lineId, record, action, key };
+    let body = { "lineId": lineId, record, action, 'userName': userInfo.UserName };
     let options = getOptions(body);
     if (validateUserName(record["UserName"]) && validatePassword(record["Password"])) {
         let data = await getDataFromServer('editUserManagement', options);
@@ -311,8 +315,7 @@ function getRecordHtml(index, username, password, type) {
 async function deleteRecord() {
     let lineId = this.event.target.dataset.lineId;
     let action = 'delete';
-    let key = userInfo.key;
-    let body = { lineId, action, key };
+    let body = { lineId, action, 'userName': userInfo.UserName };
     let options = getOptions(body);
     let data = await getDataFromServer('editUserManagement', options);
     renderPage('userManagement');
@@ -330,6 +333,7 @@ function getLoggedUserHtml(userName) {
                 <p class="p-2 text-danger">${userInfo.Type}</p>
                 <i class="glyphicon glyphicon-user my-3" style="font-size:24px; color: red;"></i>
                 <button type="button" class="btn btn-outline-danger" onclick="loggedOut()">Logged Out</button>
+                <button class="mt-2 btn btn-outline-info glyphicon glyphicon-refresh" style="font-size:15px;" onclick="refreshCurrentPage()"></button>
             </div>
         `;
     return htmlText;
@@ -340,7 +344,7 @@ function insertNewRecord() {
 }
 
 function loggedOut() {
-    let body = { 'key': userInfo.key };
+    let body = {};
     let options = getOptions(body);
     getDataFromServer('loggedOut', options);
     render();

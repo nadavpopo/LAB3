@@ -25,44 +25,47 @@ app.get('/contact', function (req, res) {
   }, 1000);
 });
 
-app.get('/productCatalog', function (req, res) {
-  res.json(dataBase.ProductCatalog);
+app.get('/productCatalog/:userName', function (req, res) {
+
+  // if (userAuthentication(req.params.userName)) {
+  setTimeout(() => {
+    res.json(dataBase.ProductCatalog);
+  }, 1000);
+  // }
 });
 
-app.post('/userManagement', function (req, res) {
-  let type = req.body.key.split(':')[1];
-  let userDataByPermissions = getUserDataByPermissions(type);
-  setTimeout(() => {
-    res.json(userDataByPermissions);
-  }, 1000);
+app.get('/userManagement/:userName', function (req, res) {
+  if (userAuthentication(req.params.userName)) {
+    let type = dataBase.UserManagement[req.params.userName].Type;
+    let userDataByPermissions = getUserDataByPermissions(type);
+    setTimeout(() => {
+      res.json(userDataByPermissions);
+    }, 1000);
+  }
 });
 
 app.post('/login', (req, res) => {
   let userName = req.body.userName;
   let userPass = req.body.password;
-  let key = Date.now().toString(36) + Math.random().toString(36).substr(2) + ':' + dataBase.UserManagement[userName].Type;
   let userInfo = dataBase.UserManagement[userName];
-  userInfo["key"] = key;
-  dataBase.Keys.push(key);
-  writeToJson("Keys", dataBase.Keys);
   setTimeout(() => {
-    (userAuthentication(userName, userPass)) ? res.json({ "userInfo": userInfo, "tabs": getAllTabs(userName) }) : res.status(200);
+    (userAuthenticationLogin(userName, userPass)) ? res.json({ "userInfo": userInfo, "tabs": getAllTabs(userName) }) : res.status(200);
   }, 1000);
 });
 
 app.post('/editUserManagement', function (req, res) {
-  if (dataBase.Keys.includes(req.body.key)) {
-    let lineId = req.body.lineId;
-    if (dataBase.UserManagement[lineId] != null) {
-      dataBase.UserManagement[lineId].IsActive = false;
-    }
-    if (req.body.action == 'upsert') {
-      let newRecord = req.body.record;
-      newRecord["IsActive"] = true;
-      dataBase.UserManagement[newRecord.UserName] = newRecord;
-    }
-    writeToJson('UserManagement', dataBase.UserManagement);
+  // if (userAuthentication(req.body.userName)) {
+  let lineId = req.body.lineId;
+  if (dataBase.UserManagement[lineId] != null) {
+    dataBase.UserManagement[lineId].IsActive = false;
   }
+  if (req.body.action == 'upsert') {
+    let newRecord = req.body.record;
+    newRecord["IsActive"] = true;
+    dataBase.UserManagement[newRecord.UserName] = newRecord;
+  }
+  writeToJson('UserManagement', dataBase.UserManagement);
+  // }
   let userDataByPermissions = getUserDataByPermissions(req.body.Type);
   setTimeout(() => {
     res.json(userDataByPermissions);
@@ -70,9 +73,6 @@ app.post('/editUserManagement', function (req, res) {
 });
 
 app.post('/loggedOut', (req, res) => {
-  let key = req.body.key;
-  dataBase.Keys = dataBase.Keys.filter(item => item !== key);
-  writeToJson('Keys', dataBase.Keys);
   setTimeout(() => {
     res.json({});
   }, 1000);
@@ -89,9 +89,16 @@ function getAllTabs(userName) {
 
 app.listen(port);
 
-function userAuthentication(UserName, userPass) {
-  let user = dataBase.UserManagement[UserName];
-  return ((user.Password == userPass) && (user.IsActive == true));
+function userAuthenticationLogin(userName, userPass) {
+  let user = dataBase.UserManagement[userName];
+  let isValid = ((user.Password == userPass) && (user.IsActive == true));
+  return isValid;
+}
+
+function userAuthentication(userNameToFound) {
+  // let obj = dataBase.UserManagement.find(item => item.UserName == userNameToFound);
+  // console.log('obj ---> ', obj);
+  return true;
 }
 
 function getUserDataByPermissions(type) {

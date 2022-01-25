@@ -76,8 +76,7 @@
             "UserName": "test@gmail.com",
             "Password": "test",
             "Type": "manager",
-            "IsActive": true,
-            "key": "kyisk85ovtzf8d1tod:manager"
+            "IsActive": true
         },
         "manager@gmail.com": {
             "UserName": "manager@gmail.com",
@@ -138,12 +137,6 @@
             "Password": "afrat123",
             "Type": "employee",
             "IsActive": true
-        },
-        "test2@gmail.com": {
-            "UserName": "test2@gmail.com",
-            "Password": "test1",
-            "Type": "customer",
-            "IsActive": false
         }
     },
     "ManagementHierarchyTab": {
@@ -190,13 +183,5 @@
             "dataPage": "userManagement",
             "label": "User Management"
         }
-    },
-    "Keys": [
-        "kyiqm90a8vfsumo3j1f:manager",
-        "kyis2rt9np1h293537:manager",
-        "kyisfw7rrej7b6gbsk:manager",
-        "kyisgchehj3yxgz6vkl:manager",
-        "kyisk85ovtzf8d1tod:manager",
-        "kyjsb7fuvrd3lw63y2:manager"
-    ]
+    }
 }
