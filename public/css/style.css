@@ -112,6 +112,11 @@ h3.product-title {
   opacity: 0.3;
 }
 
+tr:hover {
+  border: 2px solid lightgray !important;
+  border-radius: 50px !important;
+}
+
 .loader {
   position: absolute !important;
   top: 30%;

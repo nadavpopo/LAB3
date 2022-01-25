@@ -26,12 +26,11 @@ app.get('/contact', function (req, res) {
 });
 
 app.get('/productCatalog/:userName', function (req, res) {
-
-  // if (userAuthentication(req.params.userName)) {
-  setTimeout(() => {
-    res.json(dataBase.ProductCatalog);
-  }, 1000);
-  // }
+  if (userAuthentication(req.params.userName)) {
+    setTimeout(() => {
+      res.json(dataBase.ProductCatalog);
+    }, 1000);
+  }
 });
 
 app.get('/userManagement/:userName', function (req, res) {
@@ -54,18 +53,18 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/editUserManagement', function (req, res) {
-  // if (userAuthentication(req.body.userName)) {
-  let lineId = req.body.lineId;
-  if (dataBase.UserManagement[lineId] != null) {
-    dataBase.UserManagement[lineId].IsActive = false;
+  if (userAuthentication(req.body.userName)) {
+    let lineId = req.body.lineId;
+    if (dataBase.UserManagement[lineId] != null) {
+      dataBase.UserManagement[lineId].IsActive = false;
+    }
+    if (req.body.action == 'upsert') {
+      let newRecord = req.body.record;
+      newRecord["IsActive"] = true;
+      dataBase.UserManagement[newRecord.UserName] = newRecord;
+    }
+    writeToJson('UserManagement', dataBase.UserManagement);
   }
-  if (req.body.action == 'upsert') {
-    let newRecord = req.body.record;
-    newRecord["IsActive"] = true;
-    dataBase.UserManagement[newRecord.UserName] = newRecord;
-  }
-  writeToJson('UserManagement', dataBase.UserManagement);
-  // }
   let userDataByPermissions = getUserDataByPermissions(req.body.Type);
   setTimeout(() => {
     res.json(userDataByPermissions);
@@ -96,9 +95,10 @@ function userAuthenticationLogin(userName, userPass) {
 }
 
 function userAuthentication(userNameToFound) {
-  // let obj = dataBase.UserManagement.find(item => item.UserName == userNameToFound);
-  // console.log('obj ---> ', obj);
-  return true;
+  for (const [key, value] of Object.entries(dataBase.UserManagement)) {
+    if (value.UserName == userNameToFound) return true;
+  }
+  return false;
 }
 
 function getUserDataByPermissions(type) {
