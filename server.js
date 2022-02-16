@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
   let userPass = req.body.password;
   let userInfo = dataBase.UserManagement[userName];
   setTimeout(() => {
-    (userAuthenticationLogin(userName, userPass)) ? res.json({ "userInfo": userInfo, "tabs": getAllTabs(userName) }) : res.status(200);
+    (userAuthenticationLogin(userName, userPass)) ? res.json({ "userInfo": userInfo, "tabs": getAllTabs(userName) }) : res.status(500).send({ error: 'Invalid user or password' });;
   }, 1000);
 });
 

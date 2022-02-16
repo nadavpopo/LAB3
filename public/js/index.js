@@ -130,8 +130,6 @@ async function login() {
             renderTabs();
             renderLoggedUser();
             renderPage('productCatalog');
-        } else {
-            alert('Invalid username or password Please try again');
         }
     }
 }
@@ -354,13 +352,27 @@ async function getDataFromServer(url, options) {
     let containerLoaderId = document.getElementById("containerLoaderId");
     containerLoaderId.style = "display: black;";
     let json = '';
+    let isTooLongTime = false;
+    setTimeout(() => {
+        if (json == '') {
+            alert('Too long time please refresh your page');
+            isTooLongTime = true;
+            return;
+        }
+    }, 5000);
     try {
         let res = await fetch(('/' + url), options);
         json = await res.json();
-        containerLoaderId.style = "display: none;";
-        console.log('getDataFromServer json ---> ', json);
+        if (res.status == 200) {
+            if (!isTooLongTime) {
+                containerLoaderId.style = "display: none;";
+                console.log('getDataFromServer json ---> ', json);
+                return json;
+            }
+        } else {
+            alert(`${json.error} please refresh your page`);
+        }
     } catch (error) {
         console.error('Error: ', error);
     }
-    return json;
 }
